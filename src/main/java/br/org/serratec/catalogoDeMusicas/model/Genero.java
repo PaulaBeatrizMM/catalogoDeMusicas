@@ -1,10 +1,10 @@
 package br.org.serratec.catalogoDeMusicas.model;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 
+import jakarta.validation.constraints.NotBlank;
+
+@NotBlank(message= "não pode ser valor em branco")
 public enum Genero {
-	
 	ROCK,
 	PAGODE,
 	SAMBA,
@@ -18,7 +18,6 @@ public enum Genero {
 	TRAP,
 	HIP_HOP,
 	POP;
-
 	
 
 	
