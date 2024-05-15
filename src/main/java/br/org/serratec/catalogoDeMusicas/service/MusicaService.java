@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.org.serratec.catalogoDeMusicas.dto.MusicasDto;
+import br.org.serratec.catalogoDeMusicas.model.Genero;
 import br.org.serratec.catalogoDeMusicas.model.Musica;
 import br.org.serratec.catalogoDeMusicas.repository.MusicaRepository;
 
@@ -54,4 +55,26 @@ public class MusicaService {
         return true;
     }
 
-}
+	public List<MusicasDto> obterPorArtista(String artista) {
+		return repositorio.findByArtistaLike(artista).stream()
+				.map(c -> new MusicasDto(c.getId(), c.getTitulo(), c.getArtista(), c.getGenero(), c.getAnoLancamento()))
+				.toList();
+		
+	}
+	
+	public List<MusicasDto> obterArtistasMenos(String nome) {
+        return repositorio.findByArtistaNotLike(nome).stream()
+                .map(c -> new MusicasDto(c.getId(), c.getTitulo(), c.getArtista(), c.getGenero(), c.getAnoLancamento()))
+                .toList();
+
+    }
+	
+	public List<MusicasDto> findByGenero(String nome) {
+        Genero genero = Genero.valueOf(nome.toUpperCase());
+        return repositorio.findByGenero(genero).stream()
+            .map(c -> new MusicasDto(c.getId(), c.getTitulo(), c.getArtista(), c.getGenero(), c.getAnoLancamento()))
+            .toList();
+    }
+		
+	}
+

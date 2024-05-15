@@ -68,5 +68,26 @@ public class MusicasController {
         }
         return ResponseEntity.noContent().build();
     }
-
+	
+	@GetMapping("/artista")
+	public ResponseEntity<List<MusicasDto>> buscarArtista(@RequestBody String artista ) {
+		
+	    return ResponseEntity.ok(servico.obterPorArtista(artista));
+	    }
+	
+	@GetMapping("/artistaMenos")
+    public ResponseEntity<List<MusicasDto>> buscarArtistaMenos(@RequestBody String nome){
+        return ResponseEntity.ok(servico.obterArtistasMenos(nome));
+    }
+	
+	@GetMapping("/genero")
+    public ResponseEntity<List<MusicasDto>> obterPorNome(@RequestBody String nome){
+        return ResponseEntity.ok(servico.findByGenero(nome));
+		
+	}
+	
 }
+
+
+
+
