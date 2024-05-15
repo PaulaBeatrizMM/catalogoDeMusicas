@@ -75,6 +75,21 @@ public class MusicaService {
             .map(c -> new MusicasDto(c.getId(), c.getTitulo(), c.getArtista(), c.getGenero(), c.getAnoLancamento()))
             .toList();
     }
+	
+	public List<MusicasDto> obterMusicaEntre(int data, int data2) {
+        String dataLancamento1 = String.valueOf(data);
+        String dataLancamento2 = String.valueOf(data2);
+        return repositorio.findByAnoLancamentoBetween(dataLancamento1, dataLancamento2).stream()
+                .map(c -> new MusicasDto(c.getId(), c.getTitulo(), c.getArtista(), c.getGenero(), c.getAnoLancamento()))
+                .toList();
+        
+    }
+	
+	public List<MusicasDto> findByTituloContainingIgnoreCase(String titulo) {
+        return repositorio.findByTituloContainingIgnoreCase(titulo).stream()
+            .map(m -> new MusicasDto(m.getId(), m.getTitulo(), m.getArtista(), m.getGenero(), m.getAnoLancamento()))
+            .toList();
+    }
 		
 	}
 

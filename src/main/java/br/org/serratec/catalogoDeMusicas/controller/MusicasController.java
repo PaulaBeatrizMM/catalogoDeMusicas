@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -85,6 +86,24 @@ public class MusicasController {
         return ResponseEntity.ok(servico.findByGenero(nome));
 		
 	}
+	
+	@GetMapping("/ano")
+    public ResponseEntity<List<MusicasDto>> obterMusicaEntre(@RequestBody EntreAnosDTO anoDTO){
+        int ano1 = anoDTO.ano1;
+        int ano2 = anoDTO.ano2;
+        System.out.println("Chegou aqui");
+        
+        return ResponseEntity.ok(servico.obterMusicaEntre(ano1, ano2));
+    }
+	
+	@GetMapping("/buscarPorTitulo")
+    public ResponseEntity<List<MusicasDto>> buscarPorTitulo(@RequestParam String titulo) {
+        List<MusicasDto> musicas = servico.findByTituloContainingIgnoreCase(titulo);
+        if (musicas.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(musicas);
+    }
 	
 }
 

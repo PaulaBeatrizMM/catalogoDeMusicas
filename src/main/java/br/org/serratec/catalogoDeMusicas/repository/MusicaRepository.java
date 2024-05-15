@@ -17,6 +17,10 @@ public interface MusicaRepository extends JpaRepository<Musica, Long>{
 	
 	List<Musica> findByGenero(Genero genero);
 	
+	List<Musica> findByAnoLancamentoBetween(String anoLancamento, String anoLancamento2);
+	
+	List<Musica> findByTituloContainingIgnoreCase(String titulo);
+	
 	
 	
 
